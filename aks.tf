@@ -128,14 +128,16 @@ resource "kubernetes_ingress" "juice_ingress" {
   }
 
   spec {
+     
     rule {
       http {
         path {
           backend {
             service_name = "${var.victim_company}-service"
             service_port = 80
+            
           }
-
+         path = "/"
         }
       }
     }
