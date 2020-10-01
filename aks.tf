@@ -101,7 +101,7 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
 
 
 
-data "kubernetes_service" "nginx_ingress" {
+resource "kubernetes_service" "nginx_ingress" {
   metadata {
     name      = "nginx-ingress-controller"
     namespace = kubernetes_namespace.vulnk8_namespace.metadata.0.name
