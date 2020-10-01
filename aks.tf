@@ -1,4 +1,4 @@
-#Provision AKS cluster in Azure
+#########################Provision AKS cluster in Azure###############################
 
 resource "azurerm_kubernetes_cluster" "vuln_k8_cluster" {
   name                = "${var.victim_company}-kubecluster"
@@ -34,7 +34,7 @@ resource "azurerm_kubernetes_cluster" "vuln_k8_cluster" {
 
 
 
-#Authenticate to Terraform Kubernetes Module
+#########################Authenticate to Terraform Kubernetes Module########################
 
 #Provider for K8, used after built
 provider "kubernetes" {
@@ -46,7 +46,8 @@ provider "kubernetes" {
 }
 
 
-#Perform Configuration on K8 cluster itself
+#####################Perform Configuration on K8 cluster itself#############################
+
 resource "kubernetes_namespace" "vulnk8_namespace" {
   metadata {
     name                   = "${var.victim_company}-k8"
@@ -100,26 +101,10 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
 }
 
 
-
-resource "kubernetes_service" "nginx_ingress" {
-  metadata {
-    name      = "nginx-ingress-controller"
-    namespace = kubernetes_namespace.vulnk8_namespace.metadata.0.name
-  }
-
-  depends_on = [helm_release.nginx_ingress]
-}
-
-
-
-
-
-/*
-
 resource "kubernetes_service" "vuln-k8-service" {
   metadata {
     name                   = "${var.victim_company}-service"
-    annotations            =  "ingress.class: nginx"
+    
   }
   spec {
     selector               = {
@@ -130,7 +115,29 @@ resource "kubernetes_service" "vuln-k8-service" {
       target_port          = 3000
     }
 
-    type                   = "LoadBalancer"
+    type                   = "ClusterIP"
   }
 }
-*/
+
+
+
+resource "kubernetes_ingress" "juice_ingress" {
+  metadata {
+    name = "juice-ingress"
+    annotations = [kubernetes.io/ingress.class: nginx]
+  }
+
+  spec {
+    rule {
+      http {
+        path {
+          backend {
+            service_name = "${var.victim_company}-service"
+            service_port = 80
+          }
+
+        }
+      }
+    }
+  }
+}
