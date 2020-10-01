@@ -103,7 +103,7 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
 resource "kubernetes_service" "vuln-k8-service" {
   metadata {
     name                   = "${var.victim_company}-service"
-    annotations            =  "kubernetes.io/ingress.class:nginx"
+    annotations            =  "ingress.class: nginx"
   }
   spec {
     selector               = {
