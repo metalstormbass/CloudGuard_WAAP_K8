@@ -92,7 +92,7 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
               add          = ["SYS_ADMIN"]
             }
           }
-        }k
+        }
       }
     }
   }
