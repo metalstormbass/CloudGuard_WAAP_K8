@@ -50,16 +50,16 @@ provider "kubernetes" {
 
 
 
-resource "kubernetes_namespace" "vulnk8" {
+resource "kubernetes_namespace" "vulnk8_namespace" {
   metadata {
-    name                   = "vulnk8"
+    name                   = "${var.victim_company}-k8"
   }
 }
 
 
 resource "kubernetes_deployment" "vuln-k8-deployment" {
   metadata {
-    name                   = "vulnk8"
+    name                   = "${var.victim_company}-deployment"
     namespace              = kubernetes_namespace.vulnk8.metadata.0.name
     labels                 = {
       app                  = "vulnk8"
@@ -71,14 +71,14 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
 
     selector {
       match_labels         = {
-        app                = "vulnk8"
+        app                = "${var.victim_company}-app"
       }
     }
 
     template {
       metadata {
         labels             = {
-          app              = "vulnk8"
+          app              = "${var.victim_company}-app"
         }
       }
 
@@ -87,7 +87,7 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
           image            = "bkimminich/juice-shop"
           name             = "user-app"
           port {
-            container_port = "80"
+            container_port = "3000"
           }
           security_context {
             capabilities {
@@ -104,12 +104,12 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
 
 resource "kubernetes_service" "vuln-k8-service" {
   metadata {
-    name                   = "vulnk8"
+    name                   = "${var.victim_company}-service"
     namespace              = kubernetes_namespace.vulnk8.metadata.0.name
   }
   spec {
     selector               = {
-      app                  = "vulnk8"
+      app                  = "${var.victim_company}-app"
     }
     port {
       port                 = 80
