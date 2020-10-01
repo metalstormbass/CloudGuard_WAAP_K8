@@ -107,7 +107,7 @@ data "kubernetes_service" "nginx_ingress" {
     namespace = kubernetes_namespace.vulnk8_namespace.metadata.0.name
   }
 
-  depends_on = ["helm_release.nginx_ingress"]
+  depends_on = [helm_release.nginx_ingress]
 }
 
 
