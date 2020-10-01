@@ -12,6 +12,6 @@ provider "helm" {
 resource "helm_release" "nginx_ingress" {
     name      = "nginx_ingress"
     chart     = "stable/nginx-ingress"
-    repo      = "https://kubernetes.github.io/ingress-nginx"
+    repository      = "https://kubernetes.github.io/ingress-nginx"
     namespace = kubernetes_namespace.vulnk8_namespace.metadata.0.name
 }
