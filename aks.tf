@@ -104,7 +104,7 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
 resource "kubernetes_service" "vuln-k8-service" {
   metadata {
     name                   = "${var.victim_company}-service"
-    
+    namespace              = kubernetes_namespace.vulnk8_namespace.metadata.0.name
   }
   spec {
     selector               = {
@@ -135,7 +135,6 @@ resource "kubernetes_ingress" "juice_ingress" {
           backend {
             service_name = "${var.victim_company}-service"
             service_port = 80
-            
           }
          path = "/"
         }
