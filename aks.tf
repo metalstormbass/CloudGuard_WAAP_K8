@@ -84,10 +84,10 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
 
       spec {
         container {
-          image            = "yonatanph/logicdemo:latest"
+          image            = "bkimminich/juice-shop"
           name             = "user-app"
           port {
-            container_port = "80"
+            container_port = "3000"
           }
           security_context {
             capabilities {
@@ -112,7 +112,7 @@ resource "kubernetes_service" "vuln-k8-service" {
       app                  = "${var.victim_company}-app"
     }
     port {
-      port                 = 80
+      port                 = 3000
     }
 
     type                   = "LoadBalancer"
