@@ -100,6 +100,22 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
 }
 
 
+
+data "kubernetes_service" "nginx_ingress" {
+  metadata {
+    name      = "nginx-ingress-controller"
+    namespace = kubernetes_namespace.vulnk8_namespace.metadata.0.name
+  }
+
+  depends_on = ["helm_release.nginx_ingress"]
+}
+
+
+
+
+
+/*
+
 resource "kubernetes_service" "vuln-k8-service" {
   metadata {
     name                   = "${var.victim_company}-service"
@@ -117,3 +133,4 @@ resource "kubernetes_service" "vuln-k8-service" {
     type                   = "LoadBalancer"
   }
 }
+*/
