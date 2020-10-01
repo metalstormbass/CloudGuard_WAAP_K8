@@ -55,7 +55,6 @@ resource "kubernetes_namespace" "vulnk8_namespace" {
 
 
 
-
 resource "kubernetes_deployment" "vuln-k8-deployment" {
   metadata {
     name                   = "${var.victim_company}-juicedeployment"
@@ -93,7 +92,7 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
               add          = ["SYS_ADMIN"]
             }
           }
-        }
+        }k
       }
     }
   }
