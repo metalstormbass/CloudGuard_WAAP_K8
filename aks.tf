@@ -60,7 +60,7 @@ resource "kubernetes_namespace" "vulnk8_namespace" {
 resource "kubernetes_deployment" "vuln-k8-deployment" {
   metadata {
     name                   = "${var.victim_company}-deployment"
-    namespace              = kubernetes_namespace.vulnk8.metadata.0.name
+    namespace              = kubernetes_namespace.vulnk8_namespace.metadata.0.name
     labels                 = {
       app                  = "vulnk8"
     }
@@ -105,7 +105,7 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
 resource "kubernetes_service" "vuln-k8-service" {
   metadata {
     name                   = "${var.victim_company}-service"
-    namespace              = kubernetes_namespace.vulnk8.metadata.0.name
+    namespace              = kubernetes_namespace.vulnk8_namespace.metadata.0.name
   }
   spec {
     selector               = {
