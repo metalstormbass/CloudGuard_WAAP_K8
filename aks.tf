@@ -47,9 +47,6 @@ provider "kubernetes" {
 
 
 #Perform Configuration on K8 cluster itself
-
-
-
 resource "kubernetes_namespace" "vulnk8_namespace" {
   metadata {
     name                   = "${var.victim_company}-k8"
@@ -57,9 +54,11 @@ resource "kubernetes_namespace" "vulnk8_namespace" {
 }
 
 
+
+
 resource "kubernetes_deployment" "vuln-k8-deployment" {
   metadata {
-    name                   = "${var.victim_company}-deployment"
+    name                   = "${var.victim_company}-juicedeployment"
     namespace              = kubernetes_namespace.vulnk8_namespace.metadata.0.name
     labels                 = {
       app                  = "vulnk8"
@@ -112,7 +111,8 @@ resource "kubernetes_service" "vuln-k8-service" {
       app                  = "${var.victim_company}-app"
     }
     port {
-      port                 = 3000
+      port                 = 80
+      target_port          = 3000
     }
 
     type                   = "LoadBalancer"
