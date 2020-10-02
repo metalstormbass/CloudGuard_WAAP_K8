@@ -46,7 +46,7 @@ provider "kubernetes" {
 }
 
 
-#####################Perform Configuration on K8 cluster itself#############################
+#####################Perform Configuration on K8 cluster #############################
 
 resource "kubernetes_namespace" "vulnk8_namespace" {
   metadata {
@@ -55,7 +55,7 @@ resource "kubernetes_namespace" "vulnk8_namespace" {
 }
 
 
-
+#####################Juice Shop Deployment ###########################################
 resource "kubernetes_deployment" "vuln-k8-deployment" {
   metadata {
     name                   = "${var.victim_company}-juicedeployment"
@@ -99,6 +99,65 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
   }
 
 }
+
+######################## CP Nginx Controller ################################################
+
+resource "kubernetes_deployment" "vuln-k8-deployment" {
+  metadata {
+    name                   = "CP-WAAP"
+    namespace              = kubernetes_namespace.vulnk8_namespace.metadata.0.name
+    labels                 = {
+      app                  = "vulnk8"
+    }
+  }
+
+  spec {
+    replicas               = 1
+
+    selector {
+      match_labels         = {
+        app                = "${var.victim_company}-app"
+      }
+    }
+
+    template {
+      metadata {
+        labels             = {
+          app              = "${var.victim_company}-app"
+        }
+      }
+
+      spec {
+        container {
+          image            = "checkpoint/infinity-next-nano-agent"
+          name             = "CP-WAAP"
+            security_context {
+            capabilities {
+              add          = ["SYS_ADMIN"]
+            }
+           args = {"--token" = var.token }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 resource "kubernetes_service" "vuln-k8-service" {

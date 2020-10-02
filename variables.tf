@@ -29,3 +29,9 @@ variable "client_secret" {
   type        = string
   description = "Client secret from Azure for K8"
 }
+
+# Token
+variable "token" {
+  type        = string
+  description = "WAAP Token"
+}
