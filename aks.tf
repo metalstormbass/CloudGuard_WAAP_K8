@@ -131,7 +131,12 @@ resource "kubernetes_deployment" "cp-waap-deployment" {
         container {
           image            = "checkpoint/infinity-next-nano-agent"
           name             = "cp-waap"
+          command          = ["/entry.sh"]
           args = ["--token", var.token, ]
+          volume_mount {
+              name = cp-agent-volume-claim-template
+              mount_path = "/etc/cp/conf/"
+          }
             security_context {
             capabilities {
               add          = ["SYS_ADMIN"]
