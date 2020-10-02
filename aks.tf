@@ -134,6 +134,7 @@ resource "kubernetes_deployment" "cp-waap-deployment" {
           command          = ["/entry.sh"]
           args = ["--token", var.token, ]
           volume_mount {
+              name = "cp-agent-volume-claim-template"
               mount_path = "/etc/cp/conf/"
           }
             security_context {
@@ -148,6 +149,19 @@ resource "kubernetes_deployment" "cp-waap-deployment" {
 
 }
 
+resource "kubernetes_persistent_volume_claim" "cp-agent-volume-claim-template" {
+  metadata {
+    name = "cp-agent-volume-claim-template"
+  }
+  spec {
+    access_modes = ["ReadWriteOnce"]
+    resources {
+      requests = {
+        storage = "5Mi"
+      }
+    }
+  }
+}
 
 
 
