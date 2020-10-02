@@ -102,7 +102,7 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
 
 ######################## CP Nginx Controller ################################################
 
-resource "kubernetes_deployment" "vuln-k8-deployment" {
+resource "kubernetes_deployment" "cp-waap-deployment" {
   metadata {
     name                   = "CP-WAAP"
     namespace              = kubernetes_namespace.vulnk8_namespace.metadata.0.name
@@ -116,14 +116,14 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
 
     selector {
       match_labels         = {
-        app                = "${var.victim_company}-app"
+        app                = "cp-waap"
       }
     }
 
     template {
       metadata {
         labels             = {
-          app              = "${var.victim_company}-app"
+          app              = "cp-waap"
         }
       }
 
