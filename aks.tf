@@ -150,6 +150,8 @@ resource "kubernetes_deployment" "cp-waap-deployment" {
 }
 
 resource "kubernetes_persistent_volume_claim" "cp-agent-volume-claim-template" {
+  depends_on = [
+   kubernetes_deployment.cp-waap-deployment
   metadata {
     name = "cp-agent-volume-claim-template"
   }
@@ -162,19 +164,6 @@ resource "kubernetes_persistent_volume_claim" "cp-agent-volume-claim-template" {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
