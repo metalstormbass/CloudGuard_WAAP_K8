@@ -104,7 +104,7 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
 
 resource "kubernetes_deployment" "cp-waap-deployment" {
   metadata {
-    name                   = "CP-WAAP"
+    name                   = "cp-waap"
     namespace              = kubernetes_namespace.vulnk8_namespace.metadata.0.name
     labels                 = {
       app                  = "vulnk8"
@@ -130,7 +130,7 @@ resource "kubernetes_deployment" "cp-waap-deployment" {
       spec {
         container {
           image            = "checkpoint/infinity-next-nano-agent"
-          name             = "CP-WAAP"
+          name             = "cp-waap"
           args = ["--token", var.token, ]
             security_context {
             capabilities {
