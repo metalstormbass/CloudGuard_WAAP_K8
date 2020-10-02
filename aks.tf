@@ -131,7 +131,7 @@ resource "kubernetes_deployment" "cp-waap-deployment" {
         container {
           image            = "checkpoint/infinity-next-nano-agent"
           name             = "CP-WAAP"
-          args = {"--token" = var.token }
+          args = ["--token" = var.token ]
             security_context {
             capabilities {
               add          = ["SYS_ADMIN"]
