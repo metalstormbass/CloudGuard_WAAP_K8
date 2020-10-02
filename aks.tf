@@ -134,7 +134,6 @@ resource "kubernetes_deployment" "cp-waap-deployment" {
           command          = ["/entry.sh"]
           args = ["--token", var.token, ]
           volume_mount {
-              name = "cp-agent-volume-claim-template"
               mount_path = "/etc/cp/conf/"
           }
             security_context {
