@@ -100,66 +100,6 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
 
 }
 
-######################## CP Nginx Controller ################################################
-
-resource "kubernetes_deployment" "cp-waap-deployment" {
-  metadata {
-    name                   = "cp-waap"
-    namespace              = kubernetes_namespace.vulnk8_namespace.metadata.0.name
-    labels                 = {
-      app                  = "vulnk8"
-    }
-  }
-
-  spec {
-    replicas               = 1
-
-    selector {
-      match_labels         = {
-        app                = "cp-waap"
-      }
-    }
-
-    template {
-      metadata {
-        labels             = {
-          app              = "cp-waap"
-        }
-      }
-
-      spec {
-        container {
-          image            = "michaelbraunbass/cp_k8_waap_ingress:latest"
-          name             = "cp-waap"
-          args = ["./cpnano/cp_nano_connect", var.token, ]
-          security_context {
-            capabilities {
-              add          = ["SYS_ADMIN"]
-            }
-          }
-        }
-      }
-    }
-  }
-
-}
-
-resource "kubernetes_persistent_volume_claim" "cp-agent-volume-claim-template" {
-  depends_on = [
-   kubernetes_deployment.cp-waap-deployment]
-  metadata {
-    name = "cp-agent-volume-claim-template"
-  }
-  spec {
-    access_modes = ["ReadWriteOnce"]
-    resources {
-      requests = {
-        storage = "5Mi"
-      }
-    }
-  }
-}
-
 
 
 resource "kubernetes_service" "vuln-k8-service" {
@@ -182,25 +122,4 @@ resource "kubernetes_service" "vuln-k8-service" {
 
 
 
-resource "kubernetes_ingress" "juice_ingress" {
-  metadata {
-    name = "juice-ingress"
-    namespace              = kubernetes_namespace.vulnk8_namespace.metadata.0.name
-    annotations = {"ingress.kubernetes.io/rewrite-target" = "/",}
-  }
 
-  spec {
-     
-    rule {
-      http {
-        path {
-          backend {
-            service_name = "${var.victim_company}-service"
-            service_port = 80
-          }
-         path = "/"
-        }
-      }
-    }
-  }
-}
