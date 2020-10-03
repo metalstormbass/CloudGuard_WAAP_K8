@@ -14,7 +14,6 @@ resource "helm_release" "cp_waap_helm" {
     name  = "cpwaap"
     chart = "https://raw.githubusercontent.com/metalstormbass/cp_waap_helm/main/CP_WAAP_Helm/CP_WAAP_Helm-0.1.0.tgz"
     namespace = kubernetes_namespace.vulnk8_namespace.metadata.0.name
-    version    = "3.3.0"
     set {
     name  = "token"
     value = var.token
