@@ -18,4 +18,8 @@ resource "helm_release" "cp_waap_helm" {
     name  = "token"
     value = var.token
   }
+    set {
+    name  = "namespace"
+    value = kubernetes_namespace.vulnk8_namespace.metadata.0.name
+  }
 }
