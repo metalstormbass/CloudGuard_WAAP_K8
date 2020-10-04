@@ -61,7 +61,7 @@ resource "kubernetes_deployment" "vuln-k8-deployment" {
     name                   = "${var.victim_company}-juicedeployment"
     namespace              = kubernetes_namespace.vulnk8_namespace.metadata.0.name
     labels                 = {
-      app                  = "vulnk8"
+      app                  = "${var.victim_company}-app"
     }
   }
 
@@ -123,8 +123,8 @@ resource "kubernetes_service" "vuln-k8-service" {
 resource "kubernetes_ingress" "juice_ingress" {
   metadata {
     name = "nginx-ingress"
-    namespace              = kubernetes_namespace.vulnk8_namespace.metadata.0.name
-     annotations = {"ingress.kubernetes.io/rewrite-target" = "/",}
+    namespace   = kubernetes_namespace.vulnk8_namespace.metadata.0.name
+    annotations = {"ingress.kubernetes.io/rewrite-target" = "/",}
   }
 
   spec {
