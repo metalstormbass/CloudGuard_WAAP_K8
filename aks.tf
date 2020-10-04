@@ -120,7 +120,28 @@ resource "kubernetes_service" "vuln-k8-service" {
   }
 }
 
+resource "kubernetes_ingress" "juice_ingress" {
+  metadata {
+    name = "juice-ingress"
+    namespace              = kubernetes_namespace.vulnk8_namespace.metadata.0.name
+    
+  }
 
+  spec {
+     
+    rule {
+      http {
+        path {
+          backend {
+            service_name = "${var.victim_company}-service"
+            service_port = 80
+          }
+         path = "/"
+        }
+      }
+    }
+  }
+}
 
 
 
