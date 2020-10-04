@@ -133,6 +133,7 @@ resource "kubernetes_ingress" "nginx_ingress" {
   spec {
      
     rule {
+      host = "test.test"
       http {
         path {
           backend {
