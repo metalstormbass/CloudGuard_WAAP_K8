@@ -124,7 +124,7 @@ resource "kubernetes_ingress" "juice_ingress" {
   metadata {
     name = "juice-ingress"
     namespace              = kubernetes_namespace.vulnk8_namespace.metadata.0.name
-    
+     annotations = {"ingress.kubernetes.io/rewrite-target" = "/",}
   }
 
   spec {
