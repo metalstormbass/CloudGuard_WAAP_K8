@@ -136,7 +136,8 @@ resource "kubernetes_ingress" "nginx_ingress" {
             service_port = 80
           }
     rule {
-        http {
+       host = "*"
+      http {
         path {
           backend {
             service_name = "${var.victim_company}-service"
