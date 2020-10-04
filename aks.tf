@@ -136,6 +136,7 @@ resource "kubernetes_ingress" "nginx_ingress" {
             service_port = 80
           }
     rule {
+       host = "test.test"
       http {
         path {
           backend {
