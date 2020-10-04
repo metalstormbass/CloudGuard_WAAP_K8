@@ -120,7 +120,7 @@ resource "kubernetes_service" "vuln-k8-service" {
   }
 }
 
-resource "kubernetes_ingress" "juice_ingress" {
+resource "kubernetes_ingress" "nginx_ingress" {
   metadata {
     name = "nginx-ingress"
     namespace   = kubernetes_namespace.vulnk8_namespace.metadata.0.name
