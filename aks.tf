@@ -124,7 +124,10 @@ resource "kubernetes_ingress" "nginx_ingress" {
   metadata {
     name = "nginx-ingress"
     namespace   = kubernetes_namespace.vulnk8_namespace.metadata.0.name
-    annotations = {"ingress.kubernetes.io/rewrite-target" = "/",}
+    annotations = {"ingress.kubernetes.io/rewrite-target" = "/",
+    "kubernetes.io/ingress.class" = "nginx"
+    "nginx.ingress.kubernetes.io/ssl-redirect" = "false"
+    "nginx.ingress.kubernetes.io/rewrite-target" = "/static/$2"}
   }
 
   spec {
