@@ -2,8 +2,7 @@ output "Company_Name" {
     value = var.victim_company
 }
 
-/*
+
 output "k8_service_url" {
-  value ="${kubernetes_service.vuln-k8-service.load_balancer_ingress}"
+  value ="${kubernetes_namespace.vulnk8_namespace.metadata.0.name}.westus2.cloudapp.azure.com"
 }
-*/
