@@ -138,6 +138,7 @@ resource "kubernetes_ingress" "nginx_ingress" {
             service_port = 80
           }
     rule {
+      host = "vulnerablekubewestus2.cloudapp.azure.com"
       http {
         path {
           backend {
