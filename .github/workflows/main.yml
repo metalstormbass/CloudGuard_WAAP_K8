@@ -8,7 +8,7 @@ on:
 jobs: 
   #Setup Environment
   deploy_k8_cluster:
-    name: 'deploy_to_lk8'
+    name: 'deploy_k8'
     runs-on: ubuntu-latest
     env:
       working-directory: . 
