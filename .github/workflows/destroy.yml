@@ -1,0 +1,42 @@
+name: 'Build and Deploy'
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - '_destroy_flag'
+jobs: 
+  #Setup Environment
+  destroy_deployment:
+    name: 'destroy'
+    runs-on: ubuntu-latest
+    env:
+      working-directory: . 
+      SG_CLIENT_ID: ${{ secrets.SG_CLIENT_ID }}
+      SG_SECRET_KEY: ${{ secrets.SG_SECRET_KEY }}  
+      CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
+      CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }} 
+
+    defaults:
+      run:
+        shell: bash
+        
+    #Checkout Code    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TERRAFORM }}
+
+    - name: Terraform Init
+      run: terraform init
+ 
+    - name: Terraform Destroy
+      run: terraform destroy -auto-approve
+
+
+
+      
