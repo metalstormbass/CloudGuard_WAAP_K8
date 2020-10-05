@@ -12,14 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: . 
+      SG_CLIENT_ID: ${{ secrets.SG_CLIENT_ID }}
+      SG_SECRET_KEY: ${{ secrets.SG_SECRET_KEY }}  
       CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
-      CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}    
+      CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }} 
 
     defaults:
       run:
         shell: bash
-    #Checkout Code
-      
+        
+    #Checkout Code    
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -37,6 +39,12 @@ jobs:
             chmod +x ./shiftleft
             ./shiftleft iac-assessment -r 210281 --path .
       continue-on-error: true
+    #Scan container to deployed as part of K8 Deployment
+    - name: ShiftLeft Container Scan
+      run: |
+        docker pull bkimminich/juice-shop
+        docker save bkimminich/juice-shop -o juice_shop.tar
+        ./shiftleft image-scan -t 1800 -i ./juice_shop.tar
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
@@ -57,3 +65,7 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: terraform apply -auto-approve
+
+
+
+      
