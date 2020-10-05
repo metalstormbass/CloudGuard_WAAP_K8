@@ -44,7 +44,7 @@ jobs:
       run: |
         docker pull bkimminich/juice-shop
         docker save bkimminich/juice-shop -o juice_shop.tar
-        ./shiftleft image-scan -t 1800 -i ./juice_shop.tar
+        ./shiftleft image-scan --timeout 1800 --image ./juice_shop.tar
       continue-on-error: true
         
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
