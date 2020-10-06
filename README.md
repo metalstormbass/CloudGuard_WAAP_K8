@@ -56,8 +56,8 @@ Start with the Environment Variables. Input the Azure App Registration informati
 Then fill in the variables required to run the Terraform playbook. Reuse the Azure App Registration client id and secret for the client_id. <b>Note: You cannot have spaces or special characters. This is an Azure limitation</b>
 
 ![](/images/terraform3.PNG)
-
+<br><br>
 Under the user settings, select Tokens and create an API token. Note the value for later. <br>
-![](/images/terraform4.PNG) <br>
+![](/images/terraform4.PNG) <br><br>
 
 Finally, in the workspace you created, click on Settings > General Settings and note the Workspace ID. We need to this to setup the API call to Terraform.io
