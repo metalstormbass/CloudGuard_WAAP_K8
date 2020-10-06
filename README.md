@@ -16,7 +16,7 @@ Github Actions: <br>
     4. Performs Shiftleft Container Scan <br>
     5. Installs Terraform & Runs Terraform init, plan and apply. <br>
     6. Terraform: <br>
-        a. Creates an AKS cluster. <br>
+        a. Creates an AKS cluster. <br>
         b. Uses Helm to install WAAP Pod <br>
         c. Outputs URL <br>
 
