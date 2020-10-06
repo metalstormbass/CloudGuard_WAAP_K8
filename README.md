@@ -12,13 +12,13 @@ From a high level, this is what happens:
 Github Actions: <br>
     1. Prepares environment <br>
     2. Creates configuration files to connect to Terraform Cloud <br>
-    3. Performs Shiftleft IAC scan
-    4. Performs Shiftleft Container Scan
-    5. Installs Terraform & Runs Terraform init, plan and apply
-    6. Terraform: 
-        a. Creates an AKS cluster. 
-        b. Uses Helm to install WAAP Pod
-        c. Outputs URL
+    3. Performs Shiftleft IAC scan <br>
+    4. Performs Shiftleft Container Scan <br>
+    5. Installs Terraform & Runs Terraform init, plan and apply. <br>
+    6. Terraform: <br>
+        a. Creates an AKS cluster. <br>
+        b. Uses Helm to install WAAP Pod <br>
+        c. Outputs URL <br>
 
 ## Prerequisites
 
