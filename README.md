@@ -29,7 +29,7 @@ Github Actions: <br>
 
 ## Setup 
 
-Fork the [VulnerableAzure](https://github.com/metalstormbass/VulnerableAzure) repository into your personal Github account. 
+Fork the [CloudGuard_WAAP_K8](https://github.com/metalstormbass/CloudGuard_WAAP_K8) repository into your personal Github account. 
 <br>
 
 ### Microsoft Azure
