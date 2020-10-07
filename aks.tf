@@ -50,7 +50,7 @@ provider "kubernetes" {
 
 resource "kubernetes_namespace" "vulnk8_namespace" {
   metadata {
-    name                   = "${var.victim_company}-k8"
+    name                   = var.namespace
   }
 }
 
