@@ -11,6 +11,12 @@ variable "location" {
   default     = "West US 2"
 }
 
+#Namespace
+variable "namespace" {
+  type        = string
+  description = "Kubernetes Namespace"
+}
+
 #Nodes
 variable "nodecount" {
   type        = string
