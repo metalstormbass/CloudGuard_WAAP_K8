@@ -16,6 +16,7 @@ jobs:
       SG_SECRET_KEY: ${{ secrets.SG_SECRET_KEY }}  
       CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
       CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }} 
+      CSPM_RULE: ${{ secrets.CSPM_RULE }} 
 
     defaults:
       run:
@@ -44,7 +45,7 @@ jobs:
     - name: ShiftLeft IaC Scan
       run: |
             chmod +x ./shiftleft
-            ./shiftleft iac-assessment -r 210281 --path .
+            ./shiftleft iac-assessment -r ${CSPM_RULE} 210281 --path .
       continue-on-error: true
     #Scan container to deployed as part of K8 Deployment
     - name: ShiftLeft Container Scan
