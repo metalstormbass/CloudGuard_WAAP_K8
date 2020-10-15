@@ -28,17 +28,9 @@ jobs:
    
    # Insert Organization into main.tf
     - name: Insert Environment Name
-      uses: jacobtomlinson/gha-find-replace@master
-      with:
-        find: "REPLACE.ORGANIZATION"
-        replace: ${{ secrets.ORGANIZATION }}
-    
-    # Insert Workspace into main.tf
-    - name: Insert Environment Name
-      uses: jacobtomlinson/gha-find-replace@master
-      with:
-        find: "REPLACE.WORKSPACE"
-        replace: ${{ secrets.WORKSPACE }}
+      run: |
+            sed -i "/organization/c\   organization\ = \"${{ secrets.ORGANIZATION }}\"" main.tf 
+            sed -i "/name/c\   name\ = \"${{ secrets.WORKSPACE }}\"" main.tf
       
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
