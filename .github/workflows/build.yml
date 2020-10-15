@@ -31,7 +31,7 @@ jobs:
     - name: Insert Environment Name
       run: |
             sed -i "/organization/c\   organization\ = \"${{ secrets.ORGANIZATION }}\"" main.tf 
-            sed -i "/name/c\   name\ = \"${{ secrets.WORKSPACE }}\"" main.tf
+            #sed -i "/name/c\   name\ = \"${{ secrets.WORKSPACE }}\"" main.tf
             cat main.tf
 
     
