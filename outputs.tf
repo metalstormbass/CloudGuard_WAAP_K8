@@ -4,5 +4,5 @@ output "Company_Name" {
 
 
 output "k8_service_url" {
-  value ="${kubernetes_namespace.vulnk8_namespace.metadata.0.name}.${lower(trim(var.location," "))}.cloudapp.azure.com"
+  value ="${kubernetes_namespace.vulnk8_namespace.metadata.0.name}.${lower(replace(var.location," ",""))}.cloudapp.azure.com"
 }
