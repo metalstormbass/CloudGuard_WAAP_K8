@@ -30,8 +30,8 @@ jobs:
     # Insert Organization into main.tf
     - name: Insert Environment Name
       run: |
-            sed -i "/organization/c\   organization\ = \"${ORGANIZATION}\"REPLACE.ORGANIZATION" main.tf 
-            sed -i "/name/c\   name\ = \"${WORKSPACE}\"REPLACE.WORKSPACE" main.tf
+            sed -i "/organization/c\   organization\ = \"${ORGANIZATION}\"" main.tf 
+            sed -i "/name/c\   name\ = \"${WORKSPACE}\"" main.tf
 
     
     #Scan terraform code prior to deployment  
