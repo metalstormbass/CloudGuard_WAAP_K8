@@ -22,4 +22,9 @@ resource "helm_release" "cp_waap_helm" {
     name  = "waapNamespace"
     value = kubernetes_namespace.vulnk8_namespace.metadata.0.name
   }
+  set {
+    name  = "ipc"
+    value = "${kubernetes_namespace.vulnk8_namespace.metadata.0.name}.${lower(replace(var.location," ",""))}.cloudapp.azure.com"
+  }
+  
 }
