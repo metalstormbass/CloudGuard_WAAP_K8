@@ -101,7 +101,7 @@ ORGANIZATION #Terraform Organization in Terraform Cloud
 SG_CLIENT_ID #Sourceguard API Key
 SG_SECRET_KEY #Sourceguard API Secret
 TERRAFORM #Terraform Cloud API Key
-WORKSPACE #Terraform Cloud Workspace
+WORKSPACE #Terraform Cloud Workspace - Get this from Terraform.io
 ```
 
 <br>
